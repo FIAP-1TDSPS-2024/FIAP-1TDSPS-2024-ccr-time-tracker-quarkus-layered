@@ -25,7 +25,13 @@ public class TmpResource {
     @GET
     public Response listItensFuncionario() {
         List<Linha> linhas = tmpService.listAll();
-        return Response.ok(linhas).build();
+
+        if (linhas.isEmpty()){
+            return Response.noContent().build();
+        }
+        else {
+            return Response.ok(linhas).build();
+        }
     }
 
     @GET

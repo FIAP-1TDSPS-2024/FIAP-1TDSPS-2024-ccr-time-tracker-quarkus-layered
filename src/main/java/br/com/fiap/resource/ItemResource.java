@@ -26,7 +26,13 @@ public class ItemResource {
     @Path("/{funcionarioId}")
     public Response listItensFuncionario(@PathParam("funcionarioId") int funcionarioId){
         List<Item> items = itemService.findByFuncionarioId(funcionarioId);
-        return Response.ok(items).build();
+
+        if (items.isEmpty()){
+            return Response.noContent().build();
+        }
+        else {
+            return Response.ok(items).build();
+        }
     }
 
     @GET
@@ -58,6 +64,13 @@ public class ItemResource {
         catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") int id){
+        itemService.delete(id);
+        return Response.noContent().build();
     }
 
 }

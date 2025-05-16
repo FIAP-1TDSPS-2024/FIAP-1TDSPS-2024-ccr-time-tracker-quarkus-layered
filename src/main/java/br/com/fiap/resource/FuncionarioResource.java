@@ -23,7 +23,13 @@ public class FuncionarioResource {
     @GET
     public Response listAll(){
         List<Funcionario> funcionarios = funcionarioService.listAll();
-        return Response.ok(funcionarios).build();
+
+        if (funcionarios.isEmpty()){
+            return Response.noContent().build();
+        }
+        else {
+            return Response.ok(funcionarios).build();
+        }
     }
 
     @GET
